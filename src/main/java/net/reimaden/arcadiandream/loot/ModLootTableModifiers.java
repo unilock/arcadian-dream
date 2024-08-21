@@ -5,8 +5,8 @@
 
 package net.reimaden.arcadiandream.loot;
 
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.block.Block;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.condition.LocationCheckLootCondition;
@@ -21,13 +21,13 @@ import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 import net.reimaden.arcadiandream.ArcadianDream;
 import net.reimaden.arcadiandream.item.ModItems;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModLootTableModifiers {
 
@@ -61,7 +61,14 @@ public class ModLootTableModifiers {
     private static final LootCondition.Builder NEEDS_FROZEN_OCEAN_BIOME = LocationCheckLootCondition.builder(LocationPredicate.Builder.create().biome(BiomeKeys.FROZEN_OCEAN));
     private static final LootCondition.Builder NEEDS_DEEP_FROZEN_OCEAN_BIOME = LocationCheckLootCondition.builder(LocationPredicate.Builder.create().biome(BiomeKeys.DEEP_FROZEN_OCEAN));
 
+    private static final List<Identifier> LEAVES_LOOT_TABLES = new ArrayList<>();
+
     public static void modify() {
+        RegistryEntryAddedCallback.event(Registries.BLOCK).register((rawId, id, object) -> {
+            if (id.toString().endsWith("leaves")) {
+                LEAVES_LOOT_TABLES.add(object.getLootTableId());
+            }
+        });
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             LootPool.Builder poolBuilder = LootPool.builder();
 
@@ -83,9 +90,8 @@ public class ModLootTableModifiers {
                 tableBuilder.pool(poolBuilderUpgrade.build());
             }
 
-            for (Map.Entry<RegistryKey<Block>, Block> entry : Registries.BLOCK.getEntrySet()) {
-                Block block = entry.getValue();
-                if (entry.getKey().getValue().toString().endsWith("leaves") && block.getLootTableId().equals(id)) {
+            for (Identifier matchingId : LEAVES_LOOT_TABLES) {
+                if (matchingId.equals(id)) {
                     poolBuilder
                             .rolls(ConstantLootNumberProvider.create(1))
                             .conditionally(RandomChanceLootCondition.builder(0.1f))
