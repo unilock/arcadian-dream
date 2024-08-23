@@ -5,7 +5,6 @@
 
 package net.reimaden.arcadiandream.loot;
 
-import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
@@ -20,14 +19,12 @@ import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.BiomeKeys;
 import net.reimaden.arcadiandream.ArcadianDream;
 import net.reimaden.arcadiandream.item.ModItems;
 
-import java.util.ArrayList;
-import java.util.List;
+import static net.reimaden.arcadiandream.loot.ModEarlyLootTableModifiers.LEAVES_LOOT_TABLES;
 
 public class ModLootTableModifiers {
 
@@ -61,14 +58,7 @@ public class ModLootTableModifiers {
     private static final LootCondition.Builder NEEDS_FROZEN_OCEAN_BIOME = LocationCheckLootCondition.builder(LocationPredicate.Builder.create().biome(BiomeKeys.FROZEN_OCEAN));
     private static final LootCondition.Builder NEEDS_DEEP_FROZEN_OCEAN_BIOME = LocationCheckLootCondition.builder(LocationPredicate.Builder.create().biome(BiomeKeys.DEEP_FROZEN_OCEAN));
 
-    private static final List<Identifier> LEAVES_LOOT_TABLES = new ArrayList<>();
-
     public static void modify() {
-        RegistryEntryAddedCallback.event(Registries.BLOCK).register((rawId, id, object) -> {
-            if (id.toString().endsWith("leaves")) {
-                LEAVES_LOOT_TABLES.add(object.getLootTableId());
-            }
-        });
         LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             LootPool.Builder poolBuilder = LootPool.builder();
 
