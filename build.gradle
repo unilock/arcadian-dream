@@ -60,7 +60,7 @@ dependencies {
 	// modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
 
 	// https://github.com/mezz/JustEnoughItems
-	modCompileOnly "mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}"
+	// modCompileOnly "mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}"
 	// modLocalRuntime "mezz.jei:jei-${project.minecraft_version}-fabric:${project.jei_version}"
 
 	// https://github.com/emilyploszaj/emi
