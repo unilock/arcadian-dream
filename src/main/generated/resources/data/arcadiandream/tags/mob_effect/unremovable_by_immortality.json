@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#spectrum:soporific",
+      "required": false
+    }
+  ]
+}

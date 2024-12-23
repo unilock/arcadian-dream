@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.poi.PointOfInterestType;
 import net.reimaden.arcadiandream.block.ModBlocks;
@@ -258,6 +259,8 @@ public class ModTagGenerator {
         protected void configure(RegistryWrapper.WrapperLookup arg) {
             getOrCreateTagBuilder(ModTags.StatusEffects.UNREMOVABLE)
                     .add(ModEffects.ELIXIR_FATIGUE);
+            getOrCreateTagBuilder(ModTags.StatusEffects.UNREMOVABLE_BY_IMMORTALITY)
+                    .addOptionalTag(new Identifier("spectrum", "soporific"));
         }
     }
 

@@ -1,2 +1,3 @@
-// 1.20.1	2023-09-28T19:14:53.364352327	Arcadian Dream/Tags for minecraft:mob_effect
+// 1.20.1	2024-12-23T10:38:12.423143	Arcadian Dream/Tags for minecraft:mob_effect
 631296dec0d4386ad3f9b49c7ce75bdbb5180e81 data/arcadiandream/tags/mob_effect/unremovable.json
+c1425f3596e089c67f4d28cbee9cc708e5b30f9c data/arcadiandream/tags/mob_effect/unremovable_by_immortality.json
