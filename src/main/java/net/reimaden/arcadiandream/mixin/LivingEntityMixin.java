@@ -19,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -39,6 +40,7 @@ import net.reimaden.arcadiandream.item.ModToolMaterials;
 import net.reimaden.arcadiandream.statistic.ModStats;
 import net.reimaden.arcadiandream.util.IEntityDataSaver;
 import net.reimaden.arcadiandream.util.ItemBreakUtil;
+import net.reimaden.arcadiandream.util.ModTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -113,7 +115,7 @@ public abstract class LivingEntityMixin extends Entity {
 
         final StatusEffect effectType = effect.getEffectType();
         if (((IEntityDataSaver) entity).arcadiandream$getPersistentData().getByte("elixir") >= 2
-                && (effectType.getCategory() == StatusEffectCategory.HARMFUL && effectType != ModEffects.ELIXIR_FATIGUE)) {
+                && (effectType.getCategory() == StatusEffectCategory.HARMFUL && effectType != ModEffects.ELIXIR_FATIGUE && !Registries.STATUS_EFFECT.getEntry(effectType).isIn(ModTags.StatusEffects.UNREMOVABLE_BY_IMMORTALITY))) {
             cir.setReturnValue(false);
         }
     }

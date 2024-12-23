@@ -130,6 +130,7 @@ public class ModTags {
     public static class StatusEffects {
 
         public static final TagKey<StatusEffect> UNREMOVABLE = createTag("unremovable");
+        public static final TagKey<StatusEffect> UNREMOVABLE_BY_IMMORTALITY = createTag("unremovable_by_immortality");
 
         @SuppressWarnings("SameParameterValue")
         private static TagKey<StatusEffect> createTag(String name) {
